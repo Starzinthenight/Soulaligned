@@ -5,19 +5,27 @@
   <title>Your Soul Blueprint</title>
   <style>
     body { font-family: Poppins, sans-serif; background: #f7f5fc; padding: 20px; }
-    .container { max-width: 700px; margin: auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
-    h1 { color: #a084ca; text-align: center; }
+    .container {
+      max-width: 700px; margin: auto; background: #fff;
+      padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    h1 { color: #a084ca; text-align: center; margin-bottom:10px; }
     p.intro { text-align: center; color: #555; margin-bottom: 30px; }
     h2 { color: #8b68a8; margin-top: 30px; }
     p { line-height: 1.6; color: #333; }
+    blockquote {
+      margin: 40px 0 10px; padding-left: 20px; border-left: 4px solid #a084ca;
+      font-style: italic; color: #666;
+    }
+    p.signature { text-align: center; margin-top: 20px; color: #444; }
     a { display: block; text-align: center; margin-top: 40px; color: #a084ca; text-decoration: none; }
     a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🌈 Your Soul Blueprint</h1>
-    <p class="intro">Below are your personalized insights. Carry them with you as you navigate your journey.</p>
+    <h1>🌈⃤🦋 Your Soul Blueprint 🌈⃤🦋</h1>
+    <p class="intro">Below are your personalised insights. Carry them with you on your journey.</p>
 
     <h2>Rooted Foundation</h2>
     <p>{{ rooted }}</p>
@@ -38,7 +46,12 @@
     <p><strong>Life Path Number:</strong> {{ life_path }}</p>
     <p><strong>Destiny Number:</strong> {{ destiny }}</p>
 
+    <blockquote>“Dreams and visions are not random, but rather blueprints of the soul.”</blockquote>
+    <p class="signature">Thank you for exploring your blueprint,<br/>— Soul Aligned Life</p>
+
     <a href="https://www.soulaligned.life/soul-blueprint-form">← Try again</a>
   </div>
 </body>
 </html>
+
+
