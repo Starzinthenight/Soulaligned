@@ -7,5 +7,11 @@ def load_segments():
     """Download and return segments JSON from your Gist."""
     response = requests.get(SEGMENTS_URL)
     response.raise_for_status()
-    return json.loads(response.text)
+    try:
+        return response.json()
+    except json.JSONDecodeError as e:
+        print("❌ Failed to decode JSON:", e)
+        print("Raw response was:", response.text[:500])  # Limit output to avoid flooding logs
+        raise
+
 
