@@ -1,7 +1,7 @@
 import json
 import requests
 
-SEGMENTS_URL = 'https://gist.githubusercontent.com/Starzinthenight/d4178399c7f1c43972fcfc3fb53c6818/raw/ae0acb830ffa2f8f8e4806b72047e29a62e2802a/segments.json'
+SEGMENTS_URL = 'https://gist.githubusercontent.com/Starzinthenight/d4178399c7f1c43972fcfc3fb53c6818/raw/7637a4e5cfec5408e40d68b9571febc606dfb136/segments.json'
 
 def load_segments():
     """Download and return segments JSON from your Gist."""
