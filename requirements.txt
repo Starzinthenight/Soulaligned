@@ -11,6 +11,7 @@ Flask
 flatlib
 pyswisseph
 requests
+fpdf
 gunicorn
 
 
