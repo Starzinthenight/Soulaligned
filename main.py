@@ -25,12 +25,7 @@ def generate():
     report = blueprint_utils.create_report(name, birthdate, birthtime, birthplace)
     segments = segments_loader.load_segments()
 
-    # OPTIONAL: Emoji debugging
-    for key, value in segments.items():
-        if any(ord(char) > 255 for char in value):
-            print(f"[EMOJI DETECTED] {key}: {value}")
-
-    # 3) Retrieve blueprint descriptions (fallback if not found)
+    # 3) Retrieve blueprint descriptions
     rooted     = segments.get(f"mars_{report['chart']['mars_sign'].lower()}", f"Mars in {report['chart']['mars_sign']}")
     heart      = segments.get(f"moon_{report['chart']['moon_sign'].lower()}", f"Moon in {report['chart']['moon_sign']}")
     expression = segments.get(f"sun_{report['chart']['sun_sign'].lower()}", f"Sun in {report['chart']['sun_sign']}")
@@ -45,7 +40,11 @@ def generate():
 
     # 5) Generate the PDF
     pdf_filename = f"soul_blueprint_{uuid.uuid4().hex}.pdf"
-    output_path = os.path.join("output", pdf_filename)
+    output_dir = "output"
+    output_path = os.path.join(output_dir, pdf_filename)
+
+    # ✅ Ensure output directory exists
+    os.makedirs(output_dir, exist_ok=True)
 
     create_pdf(
         output_path=output_path,
