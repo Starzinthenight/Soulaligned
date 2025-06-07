@@ -4,40 +4,46 @@ import os
 class SoulBlueprintPDF(FPDF):
     def header(self):
         if self.page_no() == 1:
-            return  # No header on cover
-        self.set_font('Helvetica', 'B', 16)
-        self.cell(0, 10, 'Your Soul Blueprint', ln=True, align='C')
+            return
+        self.set_font("DejaVu", size=16)
+        self.cell(0, 10, "Your Soul Blueprint", ln=True, align="C")
         self.ln(10)
 
     def footer(self):
         if self.page_no() == 1:
-            return  # No footer on cover
+            return
         self.set_y(-15)
-        self.set_font('Helvetica', 'I', 10)
+        self.set_font("DejaVu", "I", 10)
         self.set_text_color(160, 132, 202)
-        self.cell(0, 10, 'www.soulaligned.life  |  Awakened by Design', align='C')
+        self.cell(0, 10, "www.soulaligned.life  |  Awakened by Design", align="C")
 
     def add_section(self, title, content):
         if self.get_y() > 240:
             self.add_page()
-        self.set_font('Helvetica', 'B', 14)
+        self.set_font("DejaVu", "B", 14)
         self.set_text_color(160, 132, 202)
         self.cell(0, 10, title, ln=True)
         self.set_text_color(0, 0, 0)
-        self.set_font('Helvetica', '', 12)
+        self.set_font("DejaVu", "", 12)
         self.multi_cell(0, 9, content)
         self.ln(5)
 
 def create_pdf(output_path, name, rooted, heart, expression, mental, awakened, life_path, destiny):
     pdf = SoulBlueprintPDF()
 
+    # Load Unicode-safe font
+    font_path = os.path.join("fonts", "DejaVuSans.ttf")
+    pdf.add_font("DejaVu", "", font_path, uni=True)
+    pdf.add_font("DejaVu", "B", font_path, uni=True)
+    pdf.add_font("DejaVu", "I", font_path, uni=True)
+
     # COVER PAGE
     pdf.add_page()
-    pdf.set_font('Helvetica', 'B', 20)
+    pdf.set_font("DejaVu", "B", 20)
     pdf.set_text_color(160, 132, 202)
     pdf.cell(0, 20, f"{name}'s Soul Blueprint", ln=True, align='C')
     pdf.ln(10)
-    pdf.set_font('Helvetica', '', 14)
+    pdf.set_font("DejaVu", "", 14)
     pdf.set_text_color(0, 0, 0)
     cover_message = (
         "This document is a sacred reflection of your essence, potential, and personal magic.\n\n"
@@ -48,7 +54,7 @@ def create_pdf(output_path, name, rooted, heart, expression, mental, awakened, l
 
     # DEDICATION PAGE
     pdf.add_page()
-    pdf.set_font('Helvetica', '', 12)
+    pdf.set_font("DejaVu", "", 12)
     dedication = (
         f"Dear {name},\n\n"
         "This Soul Blueprint has been lovingly created to illuminate your inner world and guide you back to your authentic self. "
@@ -75,7 +81,7 @@ def create_pdf(output_path, name, rooted, heart, expression, mental, awakened, l
 
     # FINAL PAGE
     pdf.add_page()
-    pdf.set_font('Helvetica', 'I', 14)
+    pdf.set_font("DejaVu", "I", 14)
     pdf.set_text_color(100, 100, 100)
     closing = (
         "Thank you for exploring your Soul Blueprint.\n\n"
@@ -85,5 +91,5 @@ def create_pdf(output_path, name, rooted, heart, expression, mental, awakened, l
     )
     pdf.multi_cell(0, 10, closing)
 
-    # Save the file
+    # Save
     pdf.output(output_path)
