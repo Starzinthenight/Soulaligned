@@ -24,6 +24,9 @@ def generate():
     # 2) Compute chart + load segments
     report   = blueprint_utils.create_report(name, birthdate, birthtime, birthplace)
     segments = segments_loader.load_segments()
+    for key, value in segments.items():
+    if "✨" in value:
+        print(f"Emoji found in: {key}")
 
     # 3) Lookup each area with fallback to the raw sign name
     rooted     = segments.get(f"mars_{report['chart']['mars_sign'].lower()}",
