@@ -2,6 +2,7 @@ import os
 import uuid
 from flask import Flask, request, render_template
 from dotenv import load_dotenv
+
 import blueprint_utils
 import segments_loader
 from generate_pdf import create_pdf
@@ -25,25 +26,25 @@ def generate():
     report = blueprint_utils.create_report(name, birthdate, birthtime, birthplace)
     segments = segments_loader.load_segments()
 
-    # 3) Retrieve blueprint descriptions
-    rooted     = segments.get(f"mars_{report['chart']['mars_sign'].lower()}", f"Mars in {report['chart']['mars_sign']}")
-    heart      = segments.get(f"moon_{report['chart']['moon_sign'].lower()}", f"Moon in {report['chart']['moon_sign']}")
-    expression = segments.get(f"sun_{report['chart']['sun_sign'].lower()}", f"Sun in {report['chart']['sun_sign']}")
-    mental     = segments.get(f"mercury_{report['chart']['mercury_sign'].lower()}", f"Mercury in {report['chart']['mercury_sign']}")
-    awakened   = segments.get(f"ascendant_{report['chart']['ascendant_sign'].lower()}", f"Ascendant in {report['chart']['ascendant_sign']}")
+    # 3) Retrieve blueprint descriptions (astrological)
+    chart = report['chart']
+    rooted     = segments.get(f"mars_{chart['mars_sign'].lower()}", f"Mars in {chart['mars_sign']}")
+    heart      = segments.get(f"moon_{chart['moon_sign'].lower()}", f"Moon in {chart['moon_sign']}")
+    expression = segments.get(f"sun_{chart['sun_sign'].lower()}", f"Sun in {chart['sun_sign']}")
+    mental     = segments.get(f"mercury_{chart['mercury_sign'].lower()}", f"Mercury in {chart['mercury_sign']}")
+    awakened   = segments.get(f"ascendant_{chart['ascendant_sign'].lower()}", f"Ascendant in {chart['ascendant_sign']}")
 
-    # 4) Numerology text
-    lp = report['life_path']
-    dn = report['destiny_number']
-    life_path_text = segments.get(f"life_path_{lp}", f"Your Life Path Number is {lp}.")
-    destiny_text   = segments.get(f"destiny_{dn}", f"Your Destiny Number is {dn}.")
+    # 4) Numerology segments (nested dictionary lookup)
+    lp = str(report['life_path'])
+    dn = str(report['destiny_number'])
+
+    life_path_text = segments.get("lifePath", {}).get(lp, f"Your Life Path Number is {lp}.")
+    destiny_text   = segments.get("destiny", {}).get(dn, f"Your Destiny Number is {dn}.")
 
     # 5) Generate the PDF
     pdf_filename = f"soul_blueprint_{uuid.uuid4().hex}.pdf"
     output_dir = "output"
     output_path = os.path.join(output_dir, pdf_filename)
-
-    # ✅ Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
 
     create_pdf(
@@ -63,13 +64,13 @@ def generate():
         send_email_with_attachment(
             to_email=email,
             subject="Your Soul Blueprint PDF",
-            body=f"Hi {name},\n\nHere is your personalized Soul Blueprint. May it guide you gently on your path.\n\nWith love,\nSoul Aligned",
+            body=f"Hi {name},\n\nHere is your personalised Soul Blueprint. May it guide you gently on your path.\n\nWith love,\nSoul Aligned",
             attachment_path=output_path
         )
     except Exception as e:
-        print(f"Email failed: {e}")
+        print(f"[Email Error] Could not send to {email}: {e}")
 
-    # 7) Confirmation page
+    # 7) Show confirmation page
     return render_template('confirmation.html', name=name)
 
 if __name__ == '__main__':
