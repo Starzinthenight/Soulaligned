@@ -47,16 +47,18 @@ def generate():
     output_path = os.path.join(output_dir, pdf_filename)
     os.makedirs(output_dir, exist_ok=True)
 
-    create_pdf(
-        output_path=output_path,
+create_pdf(
+ output_path=output_path,
         name=name,
         rooted=rooted,
         heart=heart,
         expression=expression,
         mental=mental,
         awakened=awakened,
-        life_path=life_path_text,
-        destiny=destiny_text
+    life_path_text, destiny_text, lp, dn)
+
+
+
     )
 
     # 6) Email the PDF
