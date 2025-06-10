@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, send_file, render_template
 from dotenv import load_dotenv
 from generate_pdf import create_pdf
-from blueprint_utils import get_astrology_data, get_life_path_number, get_destiny_number
+from blueprint_utils import create_report
 import json
 
 load_dotenv()
