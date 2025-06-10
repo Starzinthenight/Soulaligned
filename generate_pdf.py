@@ -5,16 +5,15 @@ from PyPDF2 import PdfMerger
 class BlueprintPDF(FPDF):
     def __init__(self):
         super().__init__()
-        self.add_font("DejaVu", "", "fonts/DejaVuSans.ttf", uni=True)
-        self.set_font("DejaVu", size=12)
         self.set_auto_page_break(auto=True, margin=15)
         self.add_page()
+        self.set_font("Helvetica", size=12)
 
     def add_section(self, title, text):
-        self.set_font("DejaVu", style="B", size=14)
+        self.set_font("Helvetica", style="B", size=14)
         self.multi_cell(0, 10, title)
         self.ln(2)
-        self.set_font("DejaVu", size=12)
+        self.set_font("Helvetica", size=12)
         self.multi_cell(0, 10, text)
         self.ln(5)
 
@@ -44,16 +43,15 @@ from PyPDF2 import PdfMerger
 class BlueprintPDF(FPDF):
     def __init__(self):
         super().__init__()
-        self.add_font("DejaVu", "", "fonts/DejaVuSans.ttf", uni=True)
-        self.set_font("DejaVu", size=12)
         self.set_auto_page_break(auto=True, margin=15)
         self.add_page()
+        self.set_font("Helvetica", size=12)
 
     def add_section(self, title, text):
-        self.set_font("DejaVu", style="B", size=14)
+        self.set_font("Helvetica", style="B", size=14)
         self.multi_cell(0, 10, title)
         self.ln(2)
-        self.set_font("DejaVu", size=12)
+        self.set_font("Helvetica", size=12)
         self.multi_cell(0, 10, text)
         self.ln(5)
 
