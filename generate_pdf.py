@@ -10,12 +10,13 @@ class BlueprintPDF(FPDF):
         self.set_font("Helvetica", size=12)
 
     def add_section(self, title, text):
-        self.set_font("Helvetica", style="B", size=14)
-        self.multi_cell(0, 10, title)
-        self.ln(2)
-        self.set_font("Helvetica", size=12)
-        self.multi_cell(0, 10, text)
-        self.ln(5)
+      
+        # Select a standard font (uses windows-1252)
+pdf.set_font('helvetica', size=14)
+pdf.ln(10)
+pdf.write(5, 'This is standard built-in font')
+
+pdf.output("unicode.pdf")
 
 def create_pdf(output_path, name, rooted, heart, expression, mental, awakened, life_path, destiny):
     base_pdf_path = "output/main_content.pdf"
