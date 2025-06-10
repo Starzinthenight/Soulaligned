@@ -40,7 +40,7 @@ class BlueprintPDF(FPDF):
         self.ln(5)
 
 # PDF creation logic
-def create_pdf(output_path, name, rooted, heart, expression, mental, awakened, life_path_text, destiny_text, life_path_number, destiny_number):
+def create_pdf(output_path, name, rooted, heart, expression, mental, awakened, life_path, destiny):
     base_pdf_path = "output/main_content.pdf"
     pdf = BlueprintPDF()
     pdf.add_section("Soul Blueprint for " + name, "")
@@ -49,9 +49,9 @@ def create_pdf(output_path, name, rooted, heart, expression, mental, awakened, l
     pdf.add_section("Step 3: Self Expression", expression)
     pdf.add_section("Step 4: Mental Mastery", mental)
     pdf.add_section("Step 5: Awakened Self", awakened)
-     # Include number + meaning in the section titles
-    pdf.add_section(f"Life Path Number: {life_path_number}", life_path_text)
-    pdf.add_section(f"Destiny Number: {destiny_number}", destiny_text)
+    pdf.add_section("Life Path Number", life_path)
+    pdf.add_section("Destiny Number", destiny)
+    pdf.output(base_pdf_path)
 
     merger = PdfMerger()
     merger.append("assets/cover_page.pdf")
